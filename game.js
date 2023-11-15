@@ -73,22 +73,18 @@ function game(){
 
     let computerScore = 0;
     let playerScore = 0;
+    const computerSelection = getComputerChoice();
+    const winner = playRound(playerSelection,computerSelection);
 
-    for(let step = 1; step < 5;step++){
-        console.log("in the loop");
-        const computerSelection = getComputerChoice();
-        const playerSelection = prompt("Rock,Paper,Scissor");
-        const winner = playRound(playerSelection,computerSelection);
-
-        if (winner === "player"){
-            playerScore++;
-        }
-        else if(winner === "computer"){
-            computerScore++;
-        }
-        console.log(winnerMsg(winner,playerSelection,computerSelection));
+    if (winner === "player"){
+        playerScore++;
     }
+    else if(winner === "computer"){
+        computerScore++;
+    }
+    console.log(winnerMsg(winner,playerSelection,computerSelection));
+
     console.log(gameWinner(playerScore,computerScore))
 
 }
-game();
+
