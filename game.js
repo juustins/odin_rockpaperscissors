@@ -17,7 +17,6 @@ function playRound(playerSelection,computerSelection){
 
     if (playerSelection === computerSelection){
         winner = "draw"
-        console.log("In the draw")
     }
     else if (rockSection){
         winner = "player"
@@ -63,13 +62,16 @@ function gameWinner(playerScore,computerScore){
     else if(computerScore > playerScore){
         msg = `Computer win with score: ${computerScore} over ${playerScore}`
     }
+    else{
+        msg = "THE GAME IS A DRAW!"
+    }
 
     return msg
 }
 
 
 
-function game(){
+function game(playerSelection){
 
     let computerScore = 0;
     let playerScore = 0;
@@ -87,4 +89,15 @@ function game(){
     console.log(gameWinner(playerScore,computerScore))
 
 }
+
+
+let selectionButtons = document.querySelectorAll(".selection > button")
+
+
+selectionButtons.forEach((button) => {
+
+    console.log(button.value)
+    button.addEventListener('click',() => game(button.textContent))
+
+})
 
