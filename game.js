@@ -11,7 +11,7 @@ function playRound(playerSelection,computerSelection){
     playerSelection = playerSelection.toLowerCase()
     let winner
 
-    let rockSection = playerSelection === "rock" && (computerSelection === "paper" || computerSelection === "cisor")
+    let rockSection = playerSelection === "rock" && (computerSelection === "paper" || computerSelection === "scissor")
     let paperSection = playerSelection === "paper" && computerSelection === "rock"
     let scissorSection = playerSelection === "cisor" && computerSelection === "paper"
 
@@ -20,9 +20,6 @@ function playRound(playerSelection,computerSelection){
     }
     else if (rockSection){
         winner = "player"
-        console.log("--------")
-        console.log("in the player rock section")
-        console.log("--------")
     }
     else if (paperSection){
         winner = "player"
@@ -72,32 +69,62 @@ function gameWinner(playerScore,computerScore){
 
 
 function game(playerSelection){
-
-    let computerScore = 0;
-    let playerScore = 0;
+    
     const computerSelection = getComputerChoice();
     const winner = playRound(playerSelection,computerSelection);
 
+    let winnerh1 = document.createElement('h1');
+
+    const resultsDiv = document.querySelector('#results')
+    resultsDiv.removeChild(resultsDiv.lastChild);
+    resultsDiv.removeChild(resultsDiv.lastChild);
+
+
+    
+
+    let result = document.createElement('p')
+    result.textContent = winnerMsg(winner,playerSelection,computerSelection)
+    resultsDiv.appendChild(result);
+
     if (winner === "player"){
-        playerScore++;
+        ++playerScore;
     }
     else if(winner === "computer"){
-        computerScore++;
+        ++computerScore;
     }
-    console.log(winnerMsg(winner,playerSelection,computerSelection));
 
-    console.log(gameWinner(playerScore,computerScore))
+    
+
+    let score = document.createElement('p')
+    score.textContent = `Player: ${playerScore} || Computer: ${computerScore}`
+
+    resultsDiv.appendChild(score)
+
+    if(computerScore > 4){
+        winnerh1.textContent = "Computer is the winner!";
+        winnerh1.style.color = 'red';
+        resultsDiv.appendChild(winnerh1);
+        
+    }
+    else if(playerScore > 4){
+        winnerh1.textContent = "Player is the winner!";
+        winnerh1.style.color = 'blue';
+        resultsDiv.appendChild(winnerh1);
+    
+        
+    }
 
 }
 
 
-let selectionButtons = document.querySelectorAll(".selection > button")
+const selectionButtons = document.querySelectorAll(".selection > button")
+
+    let computerScore = 0;
+    let playerScore = 0;
+
+    selectionButtons.forEach((button) => {
+        button.addEventListener('click',() => game(button.textContent))
+    })
 
 
-selectionButtons.forEach((button) => {
-
-    console.log(button.value)
-    button.addEventListener('click',() => game(button.textContent))
-
-})
 
